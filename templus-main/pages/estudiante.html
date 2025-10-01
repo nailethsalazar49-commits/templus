@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Templus</title>
+    <link rel="stylesheet" href="estudiante.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="encabezado">
+        <div class="logo-header">
+            <img src="descarga.png" alt="Logo Templus">
+            <span>Templus</span>
+        </div>
+        <div class="usuario-header" onclick="toggleMenu()">
+    <img src="JUANPEREZ.avif" alt="Usuario">
+    <span> profile Juan Perez</span>
+    <div class="menu-desplegable" id="menuUsuario">
+        <p><strong>Usuario:</strong> Juan Pérez</p>
+        <p><strong>Email:</strong> juan@example.com</p>
+        <hr>
+        <a href="#">Cerrar sesión</a>
+    </div>
+</div>
+
+    </header>
+
+    <!-- MENÚ LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo lateral">
+            <span>Templus</span>
+        </div>
+        <nav>
+            <ul>
+                <li><i class="fas fa-home"></i> Principal</li>
+                <li><i class="fas fa-bolt"></i> Shorts</li>
+                <li><i class="fas fa-folder"></i> Suscripciones</li>
+                <hr>
+                <li><i class="fas fa-history"></i> Historial</li>
+                <li><i class="fas fa-list"></i> Playlists</li>
+                <li><i class="fas fa-video"></i> Tus videos</li>
+                <li><i class="fas fa-clock"></i> Ver más tarde</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenido">
+        <h1>Bienvenido a Templus</h1>
+        <p>Aquí va el contenido principal de tu aplicación.</p>
+    </main>
+
+</body>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menuUsuario");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    // Cerrar el menú si se hace clic fuera de él
+    window.addEventListener("click", function(e) {
+        const userBtn = document.querySelector(".usuario-header");
+        const menu = document.getElementById("menuUsuario");
+
+        if (!userBtn.contains(e.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+
+</html>

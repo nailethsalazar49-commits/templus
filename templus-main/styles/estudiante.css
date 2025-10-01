@@ -1,0 +1,148 @@
+/* RESETEO GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding-top: 60px; /* espacio para el header */
+    display: flex;
+}
+
+/* HEADER FIJO SUPERIOR */
+.encabezado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(20, 20, 20, 0.9);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+.logo-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-header img {
+    height: 35px;
+}
+
+.boton-header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.boton-header a:hover {
+    text-decoration: underline;
+}
+
+/* SIDEBAR IZQUIERDO */
+.sidebar {
+    width: 220px;
+    background-color: #222;
+    color: white;
+    position: fixed;
+    top: 60px; /* debajo del header */
+    left: 0;
+    bottom: 0;
+    padding: 20px 10px;
+    overflow-y: auto;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    height: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background-color: #333;
+}
+
+/* CONTENIDO PRINCIPAL */
+.contenido {
+    margin-left: 220px; /* espacio para el sidebar */
+    padding: 20px;
+    flex: 1;
+}
+/* BOTÓN DE USUARIO EN HEADER */
+.usuario-header {
+    position: relative;
+    background-color: #ffc9f1;
+    color: #2c1a1a;
+    padding: 8px 12px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.usuario-header img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+/* MENÚ DESPLEGABLE DEL USUARIO */
+.menu-desplegable {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 10px 15px;
+    display: none;
+    min-width: 200px;
+    z-index: 999;
+}
+
+.menu-desplegable p {
+    margin: 5px 0;
+}
+
+.menu-desplegable a {
+    display: block;
+    margin-top: 10px;
+    color: #e6005c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-desplegable a:hover {
+    text-decoration: underline;
+}
