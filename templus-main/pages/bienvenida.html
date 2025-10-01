@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Templus - Management Assistant</title>
+  <link rel="stylesheet" href="../styles/bienvenida.css">
+</head>
+<body>
+  <!-- Partículas de fondo -->
+  <div class="particles"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">TEMPLUS</div>
+    
+    <nav class="nav-center">
+      <ul class="nav-links">
+        <li><a href="#hero" data-translate="nav_home">inicio</a></li>
+        <li><a href="#about" data-translate="nav_project">proyecto</a></li>
+        <li><a href="#features" data-translate="nav_services">servicios</a></li>
+        <li><a href="#contact" onclick="showContactModal()" data-translate="nav_contact">contacto</a></li>
+        <li><a href="#about" data-translate="nav_about">acerca de</a></li>
+      </ul>
+      
+      <div class="search-container">
+        <input type="text" placeholder="Buscar..." id="search-input" data-translate-placeholder="search_placeholder">
+      </div>
+    </nav>
+
+    <div class="auth-buttons">
+      <div class="language-switcher">
+        <button class="language-btn active" onclick="changeLanguage('es')" id="btn-es">ES</button>
+        <button class="language-btn" onclick="changeLanguage('en')" id="btn-en">EN</button>
+      </div>
+      <a href="registro.html" class="btn-secondary" data-translate="register">Registrarse</a>
+      <a href="login.html" class="btn-primary" data-translate="login">Iniciar sesión</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1 data-translate="hero_title">welcome to templus</h1>
+      <p class="hero-subtitle" data-translate="hero_subtitle">Asistente de gestión templus</p>
+      <p class="hero-description" data-translate="hero_description">organiza tu tiempo con nosotros</p>
+      <button class="hero-cta" onclick="enterSystem()" data-translate="hero_cta">INGRESAR AL SISTEMA</button>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <div class="features-header">
+        <h2 class="features-title" data-translate="features_title">Todo lo que necesitas para gestionar</h2>
+        <p class="features-subtitle" data-translate="features_subtitle">Templus es una plataforma completa que te ayuda a organizar horarios, controlar asistencias y gestionar tu institución educativa de manera eficiente.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title" data-translate="feature1_title">Gestión Inteligente</h3>
+          <p class="feature-description" data-translate="feature1_description">Establece una estructura inteligente y organizada para gestionar horarios, roles y registros académicos con estilo moderno.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3 class="feature-title" data-translate="feature2_title">Registros Completos</h3>
+          <p class="feature-description" data-translate="feature2_description">Mantén registros detallados de asistencia, llegadas tarde y sanciones con trazabilidad completa y reportes en tiempo real.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3 class="feature-title" data-translate="feature3_title">Colaboración Fácil</h3>
+          <p class="feature-description" data-translate="feature3_description">Involucra a docentes, coordinadores y acudientes con un sistema intuitivo y amigable para la comunicación efectiva.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-container">
+      <h2 class="about-title" data-translate="about_title">Transformando la educación</h2>
+      <p class="about-description" data-translate="about_description">
+        Somos un equipo comprometido con la transformación educativa mediante soluciones digitales. 
+        Nuestro sistema está diseñado para facilitar la gestión, el control y la interacción en los entornos académicos.
+      </p>
+      <button class="hero-cta" onclick="usePlatform()" data-translate="about_cta">Utiliza nuestra plataforma</button>
+    </div>
+  </section>
+
+  <!-- Modal de Contact -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('contactModal')">&times;</span>
+      <h2 data-translate="contact_title">Contacto</h2>
+      <p data-translate="contact_message">Email:templus@gmail.com<br>Teléfono: +57 321 6063045<br>Medellín, Antioquia, Colombia</p>
+      <button class="btn-primary" onclick="closeModal('contactModal')" data-translate="close">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal de System -->
+  <div id="systemModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('systemModal')">&times;</span>
+      <h2 data-translate="system_title">Acceso al Sistema</h2>
+      <p data-translate="system_message">El sistema completo estará disponible próximamente. ¡Gracias por tu interés!</p>
+      <button class="btn-primary" onclick="closeModal('systemModal')" data-translate="close">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="../js/bienvenida.js"></script>
+</body>
+</html>

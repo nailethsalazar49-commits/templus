@@ -2,73 +2,86 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Templus</title>
-    <link rel="stylesheet" href="estudiante.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiante</title>
+    <link rel="stylesheet" href="../styles/estudiante.css">
 </head>
 <body>
-
-    <!-- HEADER -->
-    <header class="encabezado">
-        <div class="logo-header">
-            <img src="descarga.png" alt="Logo Templus">
-            <span>Templus</span>
-        </div>
-        <div class="usuario-header" onclick="toggleMenu()">
-    <img src="JUANPEREZ.avif" alt="Usuario">
-    <span> profile Juan Perez</span>
-    <div class="menu-desplegable" id="menuUsuario">
-        <p><strong>Usuario:</strong> Juan Pérez</p>
-        <p><strong>Email:</strong> juan@example.com</p>
-        <hr>
-        <a href="#">Cerrar sesión</a>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">TEMPLUS</div>
+    <div class="nav-links">
+     
     </div>
-</div>
+    <input type="text" class="search-box" placeholder="Buscar...">
+    <div class="user-section">
+      <div class="user-info" onclick="toggleDropdown()">
+        <img src="https://i.pravatar.cc/150?img=3" alt="Foto Usuario">
+        <span class="user-name">Juan Pérez</span>
+      </div>
+      <button class="logout-btn">Cerrar Sesión</button>
+    </div>
+  </nav>
 
-    </header>
+  <!-- Dropdown con info estudiante -->
+  <div class="dropdown" id="dropdown">
+    <img src="https://i.pravatar.cc/150?img=3" alt="Foto Usuario">
+    <h3>Juan Pérez</h3>
+    <p><b>Documento:</b> 123456789</p>
+    <p><b>Correo:</b> juan.perez@correo.com</p>
+    <p><b>Grado:</b> 11°</p>
+    <p><b>Grupo:</b> A</p>
+    <p><b>Estado:</b> ✅ Activo</p>
+  </div>
 
-    <!-- MENÚ LATERAL -->
-    <aside class="sidebar">
-        <div class="logo">
-            <img src="logo.png" alt="Logo lateral">
-            <span>Templus</span>
-        </div>
-        <nav>
-            <ul>
-                <li><i class="fas fa-home"></i> Principal</li>
-                <li><i class="fas fa-bolt"></i> Shorts</li>
-                <li><i class="fas fa-folder"></i> Suscripciones</li>
-                <hr>
-                <li><i class="fas fa-history"></i> Historial</li>
-                <li><i class="fas fa-list"></i> Playlists</li>
-                <li><i class="fas fa-video"></i> Tus videos</li>
-                <li><i class="fas fa-clock"></i> Ver más tarde</li>
-            </ul>
-        </nav>
-    </aside>
+  <!-- HEADER DEL DASHBOARD -->
+  <header>
+    <h1>Panel del Estudiante</h1>
+    <p>Consulta tu asistencia, faltas y sanciones de manera intuitiva y moderna</p>
+  </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="contenido">
-        <h1>Bienvenido a Templus</h1>
-        <p>Aquí va el contenido principal de tu aplicación.</p>
-    </main>
+  <!-- MAIN -->
+  <main class="container">
+    <!-- Resumen -->
+    <section class="card">
+      <h2>Resumen General</h2>
+      <div class="stats">
+        <div class="stat">✅ Presentes<br><strong>120</strong></div>
+        <div class="stat">❌ Faltas<br><strong>8</strong></div>
+        <div class="stat">⏰ Tardanzas<br><strong>5</strong></div>
+        <div class="stat">⚠️ Sanciones<br><strong>2</strong></div>
+      </div>
+    </section>
 
+    <!-- Calendario -->
+    <section class="card">
+      <h2>Calendario de Asistencia</h2>
+      <div id="calendar"></div>
+      <div class="legend">
+        <span><div style="background:linear-gradient(135deg, #ef4444, #dc2626);"></div> Falta</span>
+        <span><div style="background:linear-gradient(135deg, #f97316, #ea580c);"></div> Tarde</span>
+        <span><div style="background:linear-gradient(135deg, #8b5cf6, #7c3aed);"></div> Sanción</span>
+      </div>
+    </section>
+
+    <!-- Historial -->
+    <section class="card" style="grid-column: span 2;">
+      <h2>Historial de Registros</h2>
+      <table>
+        <tr><th>Fecha</th><th>Tipo</th><th>Comentario</th></tr>
+        <tr><td>02/09/2025</td><td>❌ Falta</td><td>No presentó excusa</td></tr>
+        <tr><td>05/09/2025</td><td>⏰ Tarde</td><td>Retraso de transporte</td></tr>
+        <tr><td>09/09/2025</td><td>⚠️ Sanción</td><td>Suspensión por 1 día</td></tr>
+        <tr><td>15/09/2025</td><td>✅ Presente</td><td>Asistencia completa</td></tr>
+        <tr><td>18/09/2025</td><td>⏰ Tarde</td><td>Retraso justificado</td></tr>
+      </table>
+      <a href="#" class="btn">
+        <span>📊</span>
+        Descargar Reporte
+      </a>
+    </section>
+  </main>
+    
+    <script src="../js/estudiante.js"></script>
 </body>
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menuUsuario");
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-
-    // Cerrar el menú si se hace clic fuera de él
-    window.addEventListener("click", function(e) {
-        const userBtn = document.querySelector(".usuario-header");
-        const menu = document.getElementById("menuUsuario");
-
-        if (!userBtn.contains(e.target)) {
-            menu.style.display = "none";
-        }
-    });
-</script>
-
 </html>
