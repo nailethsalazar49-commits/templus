@@ -31,6 +31,97 @@
         <p><b>Estado:</b> ✅ Activo</p>
     </div>
 
+    <!-- Modal para completar datos obligatorios -->
+    <div class="modal-overlay" id="modalDatos">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>⚠️ Completa tu Información</h2>
+                <p>Necesitamos que completes los siguientes datos para continuar</p>
+            </div>
+            
+            <form class="modal-form" id="formCompletarDatos">
+                <div class="form-group">
+                    <label for="numeroMatricula">
+                        <span class="label-icon">📋</span>
+                        Número de Matrícula
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="numeroMatricula" 
+                        name="numeroMatricula" 
+                        placeholder="Ej: MAT-2025-001"
+                        required
+                    >
+                    <span class="error-message" id="errorMatricula"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="idAcudiente">
+                        <span class="label-icon">👨‍👩‍👦</span>
+                        Documento del Acudiente
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="idAcudiente" 
+                        name="idAcudiente" 
+                        placeholder="Ej: 1234567890"
+                        required
+                    >
+                    <span class="error-message" id="errorAcudiente"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="idGrupo">
+                        <span class="label-icon">👥</span>
+                        Grupo
+                        <span class="required">*</span>
+                    </label>
+                    <select id="idGrupo" name="idGrupo" required>
+                        <option value="">Selecciona tu grupo</option>
+                        <option value="1">11-A</option>
+                        <option value="2">11-B</option>
+                        <option value="3">11-C</option>
+                        <option value="4">10-A</option>
+                        <option value="5">10-B</option>
+                        <option value="6">9-A</option>
+                        <option value="7">9-B</option>
+                    </select>
+                    <span class="error-message" id="errorGrupo"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="idEstado">
+                        <span class="label-icon">✅</span>
+                        Estado
+                        <span class="required">*</span>
+                    </label>
+                    <select id="idEstado" name="idEstado" required>
+                        <option value="">Selecciona tu estado</option>
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                        <option value="3">En Proceso</option>
+                        <option value="4">Retirado</option>
+                    </select>
+                    <span class="error-message" id="errorEstado"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <span>💾</span>
+                        Guardar Información
+                    </button>
+                </div>
+
+                <p class="form-note">
+                    <span>ℹ️</span>
+                    Todos los campos son obligatorios. No podrás acceder al sistema hasta completar esta información.
+                </p>
+            </form>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <header>
         <h1>Panel del Estudiante</h1>
@@ -137,6 +228,6 @@
         </section>
     </main>
 
-    <script src="js/estudiante.js"></script>
+    <script src="../js/estudiante.js"></script>
 </body>
 </html>

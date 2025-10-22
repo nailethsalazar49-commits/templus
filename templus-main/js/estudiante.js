@@ -8,6 +8,254 @@ const incidencias = {
     "2025-09-20": "sancion"
 };
 
+// ====== DATOS DEL ESTUDIANTE (Simulación de datos de la BD) ======
+const datosEstudiante = {
+    documento: "546789042",
+    numeroMatricula: null,
+    idAcudiente: null,
+    idGrupo: null,
+    idEstado: null
+};
+
+// ====== VERIFICAR DATOS NULL AL CARGAR ======
+function verificarDatosIncompletos() {
+    const datosIncompletos = Object.keys(datosEstudiante).filter(key => 
+        datosEstudiante[key] === null || datosEstudiante[key] === 'NULL'
+    );
+
+    if (datosIncompletos.length > 0) {
+        mostrarModalDatos();
+        // Bloquear interacción con el contenido principal
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// ====== MOSTRAR MODAL ======
+function mostrarModalDatos() {
+    const modal = document.getElementById('modalDatos');
+    modal.classList.add('active');
+}
+
+// ====== OCULTAR MODAL ======
+function ocultarModalDatos() {
+    const modal = document.getElementById('modalDatos');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// ====== VALIDAR CAMPO INDIVIDUAL ======
+function validarCampo(campo) {
+    const valor = campo.value.trim();
+    const nombreCampo = campo.name;
+    const errorElement = document.getElementById(`error${nombreCampo.charAt(0).toUpperCase() + nombreCampo.slice(1)}`);
+
+    // Limpiar error previo
+    campo.classList.remove('error');
+    errorElement.classList.remove('show');
+    errorElement.textContent = '';
+
+    // Validaciones específicas
+    if (!valor) {
+        mostrarError(campo, errorElement, 'Este campo es obligatorio');
+        return false;
+    }
+
+    if (nombreCampo === 'numeroMatricula' && valor.length < 5) {
+        mostrarError(campo, errorElement, 'El número de matrícula debe tener al menos 5 caracteres');
+        return false;
+    }
+
+    if (nombreCampo === 'idAcudiente') {
+        if (!/^\d+$/.test(valor)) {
+            mostrarError(campo, errorElement, 'El documento debe contener solo números');
+            return false;
+        }
+        if (valor.length < 6 || valor.length > 12) {
+            mostrarError(campo, errorElement, 'El documento debe tener entre 6 y 12 dígitos');
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// ====== MOSTRAR ERROR ======
+function mostrarError(campo, errorElement, mensaje) {
+    campo.classList.add('error');
+    errorElement.textContent = mensaje;
+    errorElement.classList.add('show');
+}
+
+// ====== MANEJAR ENVÍO DEL FORMULARIO ======
+document.getElementById('formCompletarDatos').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Obtener todos los campos
+    const campos = this.querySelectorAll('input[required], select[required]');
+    let formularioValido = true;
+
+    // Validar todos los campos
+    campos.forEach(campo => {
+        if (!validarCampo(campo)) {
+            formularioValido = false;
+        }
+    });
+
+    if (!formularioValido) {
+        return;
+    }
+
+    // Obtener valores
+    const datosFormulario = {
+        numeroMatricula: document.getElementById('numeroMatricula').value,
+        idAcudiente: document.getElementById('idAcudiente').value,
+        idGrupo: document.getElementById('idGrupo').value,
+        idEstado: document.getElementById('idEstado').value
+    };
+
+    // Deshabilitar botón durante el envío
+    const btnSubmit = this.querySelector('.btn-submit');
+    const btnTextoOriginal = btnSubmit.innerHTML;
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '<span>⏳</span> Guardando...';
+
+    try {
+        // Simular llamada a API (reemplaza con tu endpoint real)
+        await guardarDatosEstudiante(datosFormulario);
+
+        // Actualizar datos locales
+        Object.assign(datosEstudiante, datosFormulario);
+
+        // Mostrar mensaje de éxito
+        btnSubmit.innerHTML = '<span>✅</span> ¡Datos guardados!';
+        btnSubmit.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+
+        // Cerrar modal después de 1.5 segundos
+        setTimeout(() => {
+            ocultarModalDatos();
+            btnSubmit.innerHTML = btnTextoOriginal;
+            btnSubmit.disabled = false;
+            btnSubmit.style.background = '';
+            
+            // Mostrar notificación de éxito
+            mostrarNotificacion('✅ Información completada exitosamente', 'success');
+        }, 1500);
+
+    } catch (error) {
+        console.error('Error al guardar datos:', error);
+        btnSubmit.innerHTML = '<span>❌</span> Error al guardar';
+        btnSubmit.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+        
+        setTimeout(() => {
+            btnSubmit.innerHTML = btnTextoOriginal;
+            btnSubmit.disabled = false;
+            btnSubmit.style.background = '';
+        }, 2000);
+
+        mostrarNotificacion('❌ Error al guardar la información. Intenta nuevamente.', 'error');
+    }
+});
+
+// ====== FUNCIÓN PARA GUARDAR DATOS (Conectar con tu API) ======
+async function guardarDatosEstudiante(datos) {
+    // Simular delay de red
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Aquí va tu llamada real a la API
+    /*
+    const response = await fetch('/api/estudiante/completar-datos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            documento: datosEstudiante.documento,
+            ...datos
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error('Error al guardar los datos');
+    }
+
+    return await response.json();
+    */
+
+    // Por ahora solo simula éxito
+    console.log('Datos a guardar:', datos);
+    return { success: true };
+}
+
+// ====== VALIDACIÓN EN TIEMPO REAL ======
+document.querySelectorAll('#formCompletarDatos input, #formCompletarDatos select').forEach(campo => {
+    campo.addEventListener('blur', function() {
+        validarCampo(this);
+    });
+
+    campo.addEventListener('input', function() {
+        // Limpiar error mientras escribe
+        if (this.classList.contains('error')) {
+            this.classList.remove('error');
+            const errorElement = document.getElementById(`error${this.name.charAt(0).toUpperCase() + this.name.slice(1)}`);
+            errorElement.classList.remove('show');
+        }
+    });
+});
+
+// ====== NOTIFICACIÓN TOAST ======
+function mostrarNotificacion(mensaje, tipo = 'info') {
+    const notificacion = document.createElement('div');
+    notificacion.className = `notificacion ${tipo}`;
+    notificacion.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        background: ${tipo === 'success' ? 'rgba(34, 197, 94, 0.95)' : 'rgba(239, 68, 68, 0.95)'};
+        backdrop-filter: blur(20px);
+        padding: 16px 24px;
+        border-radius: 16px;
+        color: white;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        z-index: 10001;
+        animation: slideInRight 0.4s ease, slideOutRight 0.4s ease 2.6s;
+        border: 1px solid ${tipo === 'success' ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'};
+    `;
+    notificacion.textContent = mensaje;
+    document.body.appendChild(notificacion);
+
+    setTimeout(() => {
+        notificacion.remove();
+    }, 3000);
+}
+
+// Agregar animaciones para notificaciones
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    }
+`;
+document.head.appendChild(style);
+
 // ====== CONFIGURACIÓN ======
 const meses = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -82,8 +330,11 @@ window.onclick = function(event) {
     }
 }
 
-// ====== ANIMACIONES DE ENTRADA ======
+// ====== INICIALIZAR TODO AL CARGAR ======
 document.addEventListener("DOMContentLoaded", function() {
+    // IMPORTANTE: Verificar datos incompletos PRIMERO
+    verificarDatosIncompletos();
+    
     // Generar el calendario al cargar la página
     generarCalendario();
     
@@ -114,49 +365,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// ====== EFECTOS HOVER SUAVES EN STATS ======
-document.querySelectorAll('.stat').forEach(stat => {
-    stat.addEventListener('mouseenter', function() {
-        this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
-
-// ====== FUNCIONALIDAD PARA EL BOTÓN DE DESCARGA ======
-document.querySelector('.btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    // Animación del botón
-    this.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-        this.style.transform = 'translateY(-4px)';
-    }, 100);
-    
-    // Aquí puedes agregar la lógica para descargar el reporte
-    console.log('Descargando reporte...');
-    
-    // Simulación de descarga (puedes reemplazar esto con tu lógica real)
-    setTimeout(() => {
-        alert('¡Reporte descargado exitosamente! 📊');
-    }, 500);
-});
-
-// ====== FUNCIONALIDAD PARA BÚSQUEDA ======
-const searchBox = document.querySelector('.search-box');
-searchBox.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const rows = document.querySelectorAll('tbody tr');
-    
-    rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (text.includes(searchTerm)) {
-            row.style.display = '';
-            row.style.opacity = '1';
-        } else {
-            row.style.display = 'none';
-            row.style.opacity = '0';
-        }
-    });
-});
+console.log('✅ Sistema TEMPLUS cargado correctamente');
+console.log('📅 Calendario generado');
+console.log('📊 Estadísticas listas');
+console.log('🔍 Verificando datos del estudiante...');
+        
 
 // ====== FUNCIONALIDAD PARA CERRAR SESIÓN ======
 document.querySelector('.logout-btn').addEventListener('click', function() {
