@@ -3,85 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudiante</title>
+    <title>Panel Estudiante - TEMPLUS</title>
     <link rel="stylesheet" href="../styles/estudiante.css">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav>
-    <div class="logo">TEMPLUS</div>
-    <div class="nav-links">
-     
-    </div>
-    <input type="text" class="search-box" placeholder="Buscar...">
-    <div class="user-section">
-      <div class="user-info" onclick="toggleDropdown()">
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">TEMPLUS</div>
+        <input type="text" class="search-box" placeholder="🔍 Buscar registros...">
+        <div class="user-section">
+            <div class="user-info" onclick="toggleDropdown()">
+                <img src="https://i.pravatar.cc/150?img=3" alt="Foto Usuario">
+                <span class="user-name">Juan Pérez</span>
+            </div>
+            <button class="logout-btn">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <!-- Dropdown con info estudiante -->
+    <div class="dropdown" id="dropdown">
         <img src="https://i.pravatar.cc/150?img=3" alt="Foto Usuario">
-        <span class="user-name">Juan Pérez</span>
-      </div>
-      <button class="logout-btn">Cerrar Sesión</button>
+        <h3>Juan Pérez</h3>
+        <p><b>Documento:</b> 123456789</p>
+        <p><b>Correo:</b> juan.perez@correo.com</p>
+        <p><b>Grado:</b> 11°</p>
+        <p><b>Grupo:</b> A</p>
+        <p><b>Estado:</b> ✅ Activo</p>
     </div>
-  </nav>
 
-  <!-- Dropdown con info estudiante -->
-  <div class="dropdown" id="dropdown">
-    <img src="https://i.pravatar.cc/150?img=3" alt="Foto Usuario">
-    <h3>Juan Pérez</h3>
-    <p><b>Documento:</b> 123456789</p>
-    <p><b>Correo:</b> juan.perez@correo.com</p>
-    <p><b>Grado:</b> 11°</p>
-    <p><b>Grupo:</b> A</p>
-    <p><b>Estado:</b> ✅ Activo</p>
-  </div>
+    <!-- HEADER -->
+    <header>
+        <h1>Panel del Estudiante</h1>
+        <p>Consulta tu asistencia, faltas y sanciones de manera intuitiva y moderna</p>
+    </header>
 
-  <!-- HEADER DEL DASHBOARD -->
-  <header>
-    <h1>Panel del Estudiante</h1>
-    <p>Consulta tu asistencia, faltas y sanciones de manera intuitiva y moderna</p>
-  </header>
+    <!-- MAIN -->
+    <main class="container">
+        <!-- Resumen -->
+        <section class="card card-summary">
+            <h2>Resumen General</h2>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-icon">✅</span>
+                    <div class="stat-label">Presentes</div>
+                    <div class="stat-value">120</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">❌</span>
+                    <div class="stat-label">Faltas</div>
+                    <div class="stat-value">8</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">⏰</span>
+                    <div class="stat-label">Tardanzas</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">⚠️</span>
+                    <div class="stat-label">Sanciones</div>
+                    <div class="stat-value">2</div>
+                </div>
+            </div>
+        </section>
 
-  <!-- MAIN -->
-  <main class="container">
-    <!-- Resumen -->
-    <section class="card">
-      <h2>Resumen General</h2>
-      <div class="stats">
-        <div class="stat">✅ Presentes<br><strong>120</strong></div>
-        <div class="stat">❌ Faltas<br><strong>8</strong></div>
-        <div class="stat">⏰ Tardanzas<br><strong>5</strong></div>
-        <div class="stat">⚠️ Sanciones<br><strong>2</strong></div>
-      </div>
-    </section>
+        <!-- Calendario -->
+        <section class="card card-calendar">
+            <h2>Calendario de Asistencia</h2>
+            <div class="calendar-header">
+                <div class="calendar-month" id="currentMonth"></div>
+            </div>
+            <div id="calendar"></div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background:linear-gradient(135deg, #ef4444, #dc2626);"></div>
+                    <span>Falta</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:linear-gradient(135deg, #f97316, #ea580c);"></div>
+                    <span>Tarde</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:linear-gradient(135deg, #8b5cf6, #7c3aed);"></div>
+                    <span>Sanción</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- Calendario -->
-    <section class="card">
-      <h2>Calendario de Asistencia</h2>
-      <div id="calendar"></div>
-      <div class="legend">
-        <span><div style="background:linear-gradient(135deg, #ef4444, #dc2626);"></div> Falta</span>
-        <span><div style="background:linear-gradient(135deg, #f97316, #ea580c);"></div> Tarde</span>
-        <span><div style="background:linear-gradient(135deg, #8b5cf6, #7c3aed);"></div> Sanción</span>
-      </div>
-    </section>
+        <!-- Historial -->
+        <section class="card card-history">
+            <h2>Historial de Registros</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Comentario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>02/09/2025</td>
+                            <td><span class="type-badge falta">❌ Falta</span></td>
+                            <td>No presentó excusa</td>
+                        </tr>
+                        <tr>
+                            <td>05/09/2025</td>
+                            <td><span class="type-badge tarde">⏰ Tarde</span></td>
+                            <td>Retraso de transporte</td>
+                        </tr>
+                        <tr>
+                            <td>09/09/2025</td>
+                            <td><span class="type-badge sancion">⚠️ Sanción</span></td>
+                            <td>Suspensión por 1 día</td>
+                        </tr>
+                        <tr>
+                            <td>15/09/2025</td>
+                            <td><span class="type-badge presente">✅ Presente</span></td>
+                            <td>Asistencia completa</td>
+                        </tr>
+                        <tr>
+                            <td>18/09/2025</td>
+                            <td><span class="type-badge tarde">⏰ Tarde</span></td>
+                            <td>Retraso justificado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn">
+                <span>📊</span>
+                Descargar Reporte Completo
+            </button>
+        </section>
+    </main>
 
-    <!-- Historial -->
-    <section class="card" style="grid-column: span 2;">
-      <h2>Historial de Registros</h2>
-      <table>
-        <tr><th>Fecha</th><th>Tipo</th><th>Comentario</th></tr>
-        <tr><td>02/09/2025</td><td>❌ Falta</td><td>No presentó excusa</td></tr>
-        <tr><td>05/09/2025</td><td>⏰ Tarde</td><td>Retraso de transporte</td></tr>
-        <tr><td>09/09/2025</td><td>⚠️ Sanción</td><td>Suspensión por 1 día</td></tr>
-        <tr><td>15/09/2025</td><td>✅ Presente</td><td>Asistencia completa</td></tr>
-        <tr><td>18/09/2025</td><td>⏰ Tarde</td><td>Retraso justificado</td></tr>
-      </table>
-      <a href="#" class="btn">
-        <span>📊</span>
-        Descargar Reporte
-      </a>
-    </section>
-  </main>
-    
-    <script src="../js/estudiante.js"></script>
+    <script src="js/estudiante.js"></script>
 </body>
 </html>
